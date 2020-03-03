@@ -1,0 +1,90 @@
+//VARIABLES
+$white: #fcfcfc;
+$black: #292929;
+$blue: #513dff;
+
+//MIXINS
+@mixin live-btn {
+	width: auto;
+	height: auto;
+	padding: 10px 20px;
+	background: $blue;
+	color: $white;
+	font-size: 18px;
+	font-weight: 700;
+	transition: .3s all ease;
+	display: inline-block;
+	margin: 20px;
+	&:hover {
+		background: $white;
+		color: $blue;
+		box-shadow: 0 0 30px rgba($color: $blue, $alpha: .2);
+	}
+}
+
+.columns {
+	flex-wrap: wrap;
+}
+
+header.columns {
+	justify-content: space-between;
+	padding: 50px 0;
+	@media(max-width: 992px) {
+		padding: 20px 0;
+	}
+	h1 {
+		font-size: 36px;
+		font-weight: 700;
+		color: $blue;
+		@media(max-width: 992px) {
+			font-size: 18px;
+		}
+	}
+	.github {
+		text-align: right;
+		img{
+			width: 50px;
+			height: auto;
+		}
+	}
+
+}
+
+.article {
+	transition: .3s all ease;
+	&:hover {
+		box-shadow: 0 0 40px rgba($color: #000000, $alpha: .1);
+	}
+	.image-wrapper {
+		height: 300px;
+		width: auto;
+		overflow: hidden;
+		margin-bottom: 20px;
+		@media(max-width: 992px) {
+			height: 200px;
+		}
+	}
+	.misc {
+		padding: 30px;
+		h2 {
+			font-size: 24px;
+			color: $black;
+			font-weight: 700;
+		}
+		.provider {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+			align-items: center;
+			margin-bottom: 20px;
+		}
+		.excerpt{
+			font-size: 16px;
+		}
+	}
+}
+
+.live-btn {
+	@include live-btn
+}
+

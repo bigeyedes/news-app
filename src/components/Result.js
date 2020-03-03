@@ -24,21 +24,24 @@ class Result extends React.Component{
 
 	  render() {
 		const renderNews = this.state.newses.map(function(article, i) {
-			return <div className="article" key={article.id}>
-					<div className='image'>
-						<img alt="#" src={article.urlToImage}></img>
-					</div>
-					<p className="title">{article.title}</p>
-					<div className="misc">
-						<div className="provider">
-							<span>{article.source.name}</span><span><a href={article.url}>LIVE</a></span>
+			return 	<div className="column is-half">
+						<div className="article" key={article.id}>
+							<div className='image-wrapper'>
+								<img className="image" alt="#" src={article.urlToImage}/>
+							</div>
+							<div className="misc">
+								<h2>{article.title}</h2>
+								<div className="provider">
+									<span>{article.source.name}</span>
+									<a rel="noopener noreferrer" target="_blank" className="live-btn" href={article.url}>SEE LIVE</a>
+								</div>
+								<div className='excerpt'>{article.description}</div>
+							</div>
 						</div>
-						<div className='excerpt'>{article.description}</div>
 					</div>
-				</div>
 		});
 		return (
-			<div>
+			<div className="columns">
 				{renderNews}
 			</div>
 		);
