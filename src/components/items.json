@@ -1,0 +1,6 @@
+{
+	"items": [
+	  { "id": 1, "name": "Jabłka",  "price": "2 zł" },
+	  { "id": 2, "name": "Brzoskwinie", "price": "5 zł" }
+	]
+  }
