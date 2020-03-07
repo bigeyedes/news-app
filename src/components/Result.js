@@ -1,28 +1,61 @@
 import React from 'react'
 
+require('dotenv').config()
 
 class Result extends React.Component{
 	constructor(props) {
 		super(props);
 		this.state = {
-		  error: null,
-		  newses: []
+			error: null,
+			newses: [],
+			country: 'us',
+			category: 'general'
 		};
+		this.handleChange = this.handleChange.bind(this);
+    	this.handleSubmit = this.handleSubmit.bind(this);
 	  }
 
+	handleChange(event) {
+		this.setState({
+			country: event.target.value
+		});
+	}
 
-	componentDidMount() {
-		const url = 'http://newsapi.org/v2/top-headlines?' +
-          'country=us&' +
-		  'apiKey=c5573d78ed0f4389a2900abe9c00a73f';
+	//Send requst to API adn get back newses
+	getApiRequest() {
+		const api_key = process.env.REACT_APP_NEWS_API_KEY;
+		const url = `http://newsapi.org/v2/top-headlines?country=${this.state.country}&${this.state.categroy}&apiKey=${api_key}`;
 
 		let req = new Request(url);
 		fetch(req)
-		.then(response => response.json())
-		.then(json => this.setState({newses: json.articles}))
+		.then(res => res.json())
+		.then((json) => {
+			  this.setState({
+				newses: json.articles
+			  });
+			},
+			(error) => {
+			  this.setState({
+				error
+			  });
+			}
+		  )
+	}
+
+	//Send requst to API on form submit
+	handleSubmit = (event) => {
+		this.getApiRequest()
+		event.preventDefault();
+	}
+
+	//Default and first API request
+	componentDidMount() {
+		this.getApiRequest()
 	  }
 
 	  render() {
+		const { error } = this.state;
+		//News wrapper template
 		const renderNews = this.state.newses.map(function(article, i) {
 			return 	<div className="column is-half">
 						<div className="article" key={article.id}>
@@ -40,11 +73,44 @@ class Result extends React.Component{
 						</div>
 					</div>
 		});
-		return (
-			<div className="columns">
-				{renderNews}
-			</div>
-		);
+		if (error){
+			return <div>Błąd aplikacji: {error.message}</div>
+		} else {
+			return (
+				//Form wrapper template
+				<div>
+					<form onSubmit={this.handleSubmit}>
+						<div className="columns">
+							<div className="column  is-5">
+									<select value={this.state.country} onChange={this.handleChange}>
+										<option value="us">USA</option>
+										<option value="pl">Poland</option>
+										<option value="gb">Great Britain</option>
+										<option value="jp">Japan</option>
+									</select>
+							</div>
+							<div className="column is-5">
+								<select value={this.state.category} onChange={this.handleChange}>
+									<option value="general">General</option>
+									<option value="business">Business</option>
+									<option value="entertainment">Entertainment</option>
+									<option value="health">Health</option>
+									<option value="science">Science</option>
+									<option value="sports">Sports</option>
+									<option value="technology">Technology</option>
+								</select>
+							</div>
+							<div className="column is-2">
+								<input type="submit" value="Submit" />
+							</div>
+						</div>
+					</form>
+				<div className="columns">
+					{renderNews}
+				</div>
+				</div>
+			);
+		}
 	}
 }
 
