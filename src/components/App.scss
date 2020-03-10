@@ -26,6 +26,9 @@ $grey: #d6d6d6;
 .App {
 	margin-bottom: 50px;
 	padding: 50px;
+	@media(max-width: 992px) {
+		padding: 10px;
+	}
 }
 
 .columns {
@@ -72,7 +75,7 @@ header.columns {
 		border-top-left-radius: 10px;
 		border-top-right-radius: 10px;
 		@media(max-width: 992px) {
-			height: 200px;
+			height: 150px;
 		}
 	}
 	.misc {
@@ -81,6 +84,9 @@ header.columns {
 			font-size: 24px;
 			color: $black;
 			font-weight: 700;
+			@media(max-width: 992px) {
+				font-size: 18px;
+			}
 		}
 		.provider {
 			display: flex;
@@ -93,6 +99,9 @@ header.columns {
 		.excerpt{
 			font-size: 16px;
 			color: $black;
+			@media(max-width: 992px) {
+				display: none
+			}
 		}
 	}
 }
