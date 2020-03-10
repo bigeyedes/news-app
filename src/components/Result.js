@@ -25,7 +25,7 @@ class Result extends React.Component{
 		this.setState({
 			category: event.target.value
 		});
-	}
+	} 
 
 	//Send requst to API adn get back newses
 	getApiRequest() {
