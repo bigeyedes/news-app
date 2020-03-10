@@ -8,6 +8,7 @@ function App() {
     <div className="App">
 		<Header />
 		<Result />
+		<footer>Created by <a rel="noopener noreferrer" target="_blank" href="http://andrzejmusiol.pl/">andrzejmusiol.pl</a></footer>
     </div>
   );
 }

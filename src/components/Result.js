@@ -11,20 +11,27 @@ class Result extends React.Component{
 			country: 'us',
 			category: 'general'
 		};
-		this.handleChange = this.handleChange.bind(this);
+		this.handleChangeCountry = this.handleChangeCountry.bind(this);
+		this.handleChangeCategory = this.handleChangeCategory.bind(this);
     	this.handleSubmit = this.handleSubmit.bind(this);
 	  }
 
-	handleChange(event) {
+	handleChangeCountry(event) {
 		this.setState({
 			country: event.target.value
+		});
+	}
+	handleChangeCategory(event) {
+		this.setState({
+			category: event.target.value
 		});
 	}
 
 	//Send requst to API adn get back newses
 	getApiRequest() {
 		const api_key = process.env.REACT_APP_NEWS_API_KEY;
-		const url = `http://newsapi.org/v2/top-headlines?country=${this.state.country}&${this.state.categroy}&apiKey=${api_key}`;
+		const url = `http://newsapi.org/v2/top-headlines?country=${this.state.country}&category=${this.state.category}&apiKey=${api_key}`;
+		console.log(url)
 
 		let req = new Request(url);
 		fetch(req)
@@ -51,26 +58,27 @@ class Result extends React.Component{
 	//Default and first API request
 	componentDidMount() {
 		this.getApiRequest()
-	  }
+	}
 
 	  render() {
 		const { error } = this.state;
 		//News wrapper template
-		const renderNews = this.state.newses.map(function(article, i) {
-			return 	<div className="column is-half">
-						<div className="article" key={article.id}>
-							<div className='image-wrapper'>
-								<img className="image" alt="#" src={article.urlToImage}/>
-							</div>
-							<div className="misc">
-								<h2>{article.title}</h2>
-								<div className="provider">
-									<span>{article.source.name}</span>
-									<a rel="noopener noreferrer" target="_blank" className="live-btn" href={article.url}>SEE LIVE</a>
+		const renderNews = this.state.newses.map(function(article, index) {
+			return 	<div key={index} className="column is-4-desktop is-6-tablet">
+						<a rel="noopener noreferrer" target="_blank" href={article.url}>
+							<div className="article" key={article.id}>
+								<div className='image-wrapper'>
+									<img className="image" alt="#" src={article.urlToImage}/>
 								</div>
-								<div className='excerpt'>{article.description}</div>
+								<div className="misc">
+									<h2>{article.title}</h2>
+									<div className="provider">
+										<span>{article.source.name}</span>
+									</div>
+									<div className='excerpt'>{article.description}</div>
+								</div>
 							</div>
-						</div>
+						</a>
 					</div>
 		});
 		if (error){
@@ -81,8 +89,8 @@ class Result extends React.Component{
 				<div>
 					<form onSubmit={this.handleSubmit}>
 						<div className="columns">
-							<div className="column  is-5">
-									<select value={this.state.country} onChange={this.handleChange}>
+							<div className="column is-5">
+									<select value={this.state.country} onChange={this.handleChangeCountry}>
 										<option value="us">USA</option>
 										<option value="pl">Poland</option>
 										<option value="gb">Great Britain</option>
@@ -90,7 +98,7 @@ class Result extends React.Component{
 									</select>
 							</div>
 							<div className="column is-5">
-								<select value={this.state.category} onChange={this.handleChange}>
+								<select value={this.state.category} onChange={this.handleChangeCategory}>
 									<option value="general">General</option>
 									<option value="business">Business</option>
 									<option value="entertainment">Entertainment</option>
