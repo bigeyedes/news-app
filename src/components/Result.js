@@ -30,7 +30,7 @@ class Result extends React.Component{
 	//Send requst to API adn get back newses
 	getApiRequest() {
 		const api_key = process.env.REACT_APP_NEWS_API_KEY;
-		const url = `http://newsapi.org/v2/top-headlines?country=${this.state.country}&category=${this.state.category}&apiKey=${api_key}`;
+		const url = `https://newsapi.org/v2/top-headlines?country=${this.state.country}&category=${this.state.category}&apiKey=${api_key}`;
 		console.log(url)
 
 		let req = new Request(url);
