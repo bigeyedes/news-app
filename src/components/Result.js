@@ -64,22 +64,55 @@ class Result extends React.Component{
 		const { error } = this.state;
 		//News wrapper template
 		const renderNews = this.state.newses.map(function(article, index) {
-			return 	<div key={index} className="column is-4-desktop is-6-tablet">
-						<a rel="noopener noreferrer" target="_blank" href={article.url}>
-							<div className="article" key={article.id}>
-								<div className='image-wrapper'>
-									<img className="image" alt="#" src={article.urlToImage}/>
-								</div>
-								<div className="misc">
-									<h2>{article.title}</h2>
-									<div className="provider">
-										<span>{article.source.name}</span>
+			if (index === 0) {
+				return 	<div key={index} id={index} className="column main-article is-12-desktop is-12-tablet">
+								<div className="article" key={article.id}>
+									<div className='image-wrapper'>
+										<img className="image" alt="#" src={article.urlToImage}/>
 									</div>
-									<div className='excerpt'>{article.description}</div>
+									<div className="misc">
+										<p>{article.publishedAt.substring(0, 10)}</p>
+										<a rel="noopener noreferrer" target="_blank" href={article.url}><h2>{article.title}</h2></a>
+										<div className="provider">
+											<span>{article.source.name}</span>
+										</div>
+										<div className='excerpt'>{article.description}</div>
+									</div>
+								</div>
+						</div>
+			} else if (index === 1 || index === 2){
+				return 	<div key={index} id={index} className="column main-article sec-third-articles is-6">
+								<div className="article" key={article.id}>
+									<div className='image-wrapper'>
+										<img className="image" alt="#" src={article.urlToImage}/>
+									</div>
+									<div className="misc">
+										<p>{article.publishedAt.substring(0, 10)}</p>
+										<a rel="noopener noreferrer" target="_blank" href={article.url}><h2>{article.title}</h2></a>
+										<div className="provider">
+											<span>{article.source.name}</span>
+										</div>
+									</div>
 								</div>
 							</div>
-						</a>
-					</div>
+			}
+			else {
+				return 	<div key={index} id={index} className="column is-4-desktop is-6-tablet">
+								<div className="article" key={article.id}>
+									<div className='image-wrapper'>
+										<img className="image" alt="#" src={article.urlToImage}/>
+									</div>
+									<div className="misc">
+										<p>{article.publishedAt.substring(0, 10)}</p>
+										<a rel="noopener noreferrer" target="_blank" href={article.url}><h2>{article.title}</h2></a>
+										<div className="provider">
+											<span>{article.source.name}</span>
+										</div>
+										<div className='excerpt'>{article.description.substring(0, 100) + ' ...'}</div>
+									</div>
+								</div>
+						</div>
+			}
 		});
 		if (error){
 			return <div>Błąd aplikacji: {error.message}</div>
@@ -94,7 +127,9 @@ class Result extends React.Component{
 										<option value="us">USA</option>
 										<option value="pl">Poland</option>
 										<option value="gb">Great Britain</option>
+										<option value="fr">France</option>
 										<option value="jp">Japan</option>
+										<option value="ru">Russia</option>
 									</select>
 							</div>
 							<div className="column is-5">
@@ -109,7 +144,7 @@ class Result extends React.Component{
 								</select>
 							</div>
 							<div className="column is-2">
-								<input type="submit" value="Submit" />
+								<input type="submit" value="Search" />
 							</div>
 						</div>
 					</form>
