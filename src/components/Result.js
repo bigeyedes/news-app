@@ -108,7 +108,7 @@ class Result extends React.Component{
 										<div className="provider">
 											<span>{article.source.name}</span>
 										</div>
-										<div className='excerpt'>{article.description.substring(0, 100) + ' ...'}</div>
+										<div className='excerpt'>{article.description}</div>
 									</div>
 								</div>
 						</div>
