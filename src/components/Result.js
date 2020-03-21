@@ -8,7 +8,7 @@ class Result extends React.Component{
 		this.state = {
 			error: null,
 			newses: [],
-			country: 'us',
+			country: 'pl',
 			category: 'general'
 		};
 		this.handleChangeCountry = this.handleChangeCountry.bind(this);
@@ -67,8 +67,7 @@ class Result extends React.Component{
 			if (index === 0) {
 				return 	<div key={index} id={index} className="column main-article is-12-desktop is-12-tablet">
 								<div className="article" key={article.id}>
-									<div className='image-wrapper'>
-										<img className="image" alt="#" src={article.urlToImage}/>
+									<div className='image-wrapper' style={{backgroundImage: 'url(' + article.urlToImage + ')'}}>
 									</div>
 									<div className="misc">
 										<p>{article.publishedAt.substring(0, 10)}</p>
@@ -83,8 +82,7 @@ class Result extends React.Component{
 			} else if (index === 1 || index === 2){
 				return 	<div key={index} id={index} className="column main-article sec-third-articles is-6">
 								<div className="article" key={article.id}>
-									<div className='image-wrapper'>
-										<img className="image" alt="#" src={article.urlToImage}/>
+									<div className='image-wrapper' style={{backgroundImage: 'url(' + article.urlToImage + ')'}}>
 									</div>
 									<div className="misc">
 										<p>{article.publishedAt.substring(0, 10)}</p>
@@ -97,20 +95,18 @@ class Result extends React.Component{
 							</div>
 			}
 			else {
-				return 	<div key={index} id={index} className="column is-4-desktop is-6-tablet">
+				return 	<div key={index} id={index} className="column is-4-desktop is-6-tablet other-article">
+							<a rel="noopener noreferrer" target="_blank" href={article.url}>
 								<div className="article" key={article.id}>
-									<div className='image-wrapper'>
-										<img className="image" alt="#" src={article.urlToImage}/>
+									<div className='image-wrapper' style={{backgroundImage: 'url(' + article.urlToImage + ')'}}>
 									</div>
 									<div className="misc">
-										<p>{article.publishedAt.substring(0, 10)}</p>
+										<p>{article.publishedAt.substring(0, 10)} | {article.source.name}</p>
 										<a rel="noopener noreferrer" target="_blank" href={article.url}><h2>{article.title}</h2></a>
-										<div className="provider">
-											<span>{article.source.name}</span>
-										</div>
 										<div className='excerpt'>{article.description}</div>
 									</div>
 								</div>
+								</a>
 						</div>
 			}
 		});
