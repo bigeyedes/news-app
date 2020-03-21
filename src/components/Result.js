@@ -1,4 +1,5 @@
 import React from 'react'
+import Form from './Form'
 
 require('dotenv').config()
 
@@ -11,17 +12,14 @@ class Result extends React.Component{
 			country: 'pl',
 			category: 'general'
 		};
-		this.handleChangeCountry = this.handleChangeCountry.bind(this);
-		this.handleChangeCategory = this.handleChangeCategory.bind(this);
-    	this.handleSubmit = this.handleSubmit.bind(this);
 	  }
 
-	handleChangeCountry(event) {
+	handleChangeCountry = (event) => {
 		this.setState({
 			country: event.target.value
 		});
 	}
-	handleChangeCategory(event) {
+	handleChangeCategory = (event) => {
 		this.setState({
 			category: event.target.value
 		});
@@ -114,36 +112,15 @@ class Result extends React.Component{
 			return <div>Błąd aplikacji: {error.message}</div>
 		} else {
 			return (
-				//Form wrapper template
+
 				<div>
-					<form onSubmit={this.handleSubmit}>
-						<div className="columns">
-							<div className="column is-5">
-									<select value={this.state.country} onChange={this.handleChangeCountry}>
-										<option value="us">USA</option>
-										<option value="pl">Poland</option>
-										<option value="gb">Great Britain</option>
-										<option value="fr">France</option>
-										<option value="jp">Japan</option>
-										<option value="ru">Russia</option>
-									</select>
-							</div>
-							<div className="column is-5">
-								<select value={this.state.category} onChange={this.handleChangeCategory}>
-									<option value="general">General</option>
-									<option value="business">Business</option>
-									<option value="entertainment">Entertainment</option>
-									<option value="health">Health</option>
-									<option value="science">Science</option>
-									<option value="sports">Sports</option>
-									<option value="technology">Technology</option>
-								</select>
-							</div>
-							<div className="column is-2">
-								<input type="submit" value="Search" />
-							</div>
-						</div>
-					</form>
+					<Form
+					handleSubmit={this.handleSubmit}
+					country={this.state.country}
+					handleChangeCountry={this.handleChangeCountry}
+					category={this.state.category}
+					handleChangeCategory={this.handleChangeCategory}
+					/>
 				<div className="columns">
 					{renderNews}
 				</div>
